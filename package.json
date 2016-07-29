@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "d3-queue": "^3.0.1",
+    "he": "^1.1.0",
     "lodash": "^4.14.0",
     "mapbox-data-team": "^1.1.2",
     "moment": "^2.14.1",

@@ -3,6 +3,7 @@ var request = require('superagent');
 var team = require('mapbox-data-team').getUsernames();
 var d3 = require('d3-queue');
 var moment = require('moment');
+var he = require('he');
 var baseUrl = "http://www.openstreetmap.org/user/";
 var teamEntries = [];
 
@@ -15,7 +16,7 @@ var feed = document.getElementsByClassName('feed');
 
 function fetchEntries(username, callback) {
     var url = baseUrl + username + "/diary/rss";
-    request.get('https://rss2json.com/api.json?rss_url='+url)
+    request.get('//rss2json.com/api.json?rss_url='+url)
     .end(function (error, response) {
         var items = JSON.parse(response.text).items;
         Array.prototype.push.apply(teamEntries, items);
@@ -37,8 +38,11 @@ q.awaitAll(function(error) {
 function sort(a, b) {
     var aDate = moment(a.pubDate);
     var bDate = moment(b.pubDate);
+
+    // this is bad
     a.time = aDate.format('D MMM, YYYY, h:mm a');
-    b.time = bDate.format('D MMM, YYYY, h:mm a');
+    a.title = he.decode(a.title);
+
     if (aDate.isBefore(b.pubDate)) {
         return 1;
     } else {
