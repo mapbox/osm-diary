@@ -1,0 +1,18 @@
+.masthead {
+    position: relative;
+    z-index: 12;
+    height: 80px;
+}
+
+.navigation-padding-top {
+    padding-top: 20px;
+}
+
+.diary-title {
+    font-family: 'Brandon', sans-serif;
+    margin-top: 12px;
+    margin-left: 10px;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;    
+}
