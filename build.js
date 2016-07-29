@@ -22784,22 +22784,16 @@ var moment = require('moment');
 var baseUrl = "http://www.openstreetmap.org/user/";
 var teamEntries = [];
 
-console.log(team);
 var meta = '<div class="clearfix quiet small"><a class="icon account" href="http://www.openstreetmap/user/<%- entry.user %>"><%- entry.author %></a> | <span class="icon time" href=""><%- entry.time %></span></div>';
 
 var title = '<div class="clearfix box round pad2"><div class="clearfix col12"><h2 class="inline fl"><a href="<%- entry.link %>"><%= entry.title %></a></h2></div>'+meta+'</div>';
 
 var content = _.template('<% _.forEach(entries, function(entry) { %>'+ title + '<% }); %>');
-
-var options = {
-  url: 'http://rss2json.com/api.json?rss_url=http%3A%2F%2Fopenstreetmap.org%2Fdiary%2Frss'
-};
 var feed = document.getElementsByClassName('feed');
 
 function fetchEntries(username, callback) {
-    console.log(username);
     var url = baseUrl + username + "/diary/rss";
-    request.get('http://rss2json.com/api.json?rss_url='+url)
+    request.get('https://rss2json.com/api.json?rss_url='+url)
     .end(function (error, response) {
         var items = JSON.parse(response.text).items;
         Array.prototype.push.apply(teamEntries, items);
