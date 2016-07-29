@@ -16,7 +16,7 @@ var feed = document.getElementsByClassName('feed');
 
 function fetchEntries(username, callback) {
     var url = baseUrl + username + "/diary/rss";
-    request.get('//rss2json.com/api.json?rss_url='+url)
+    request.get('https://rss2json.com/api.json?rss_url='+url)
     .end(function (error, response) {
         var items = JSON.parse(response.text).items;
         Array.prototype.push.apply(teamEntries, items);
