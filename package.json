@@ -1,0 +1,17 @@
+{
+  "name": "osmdiary",
+  "version": "1.0.0",
+  "description": "This project is to bring the rss feed from Mapbox user diaries from the OpenStreetMap",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jinalfoflia",
+  "license": "ISC",
+  "dependencies": {
+    "d3-queue": "^3.0.1",
+    "feed-read": "0.0.1",
+    "mapbox-data-team": "^1.1.2",
+    "moment": "^2.14.1"
+  }
+}
