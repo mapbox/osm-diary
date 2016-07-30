@@ -4,7 +4,8 @@ var team = require('mapbox-data-team').getUsernames();
 var d3 = require('d3-queue');
 var moment = require('moment');
 var he = require('he');
-var baseUrl = "http://www.openstreetmap.org/user/";
+var parser = require("rss-parser");
+var baseUrl = "http://openstreetmap.org/user/";
 var teamEntries = [];
 
 var meta = '<div class="clearfix quiet small"><a class="icon account" href="http://www.openstreetmap/user/<%- entry.user %>"><%- entry.author %></a> | <span class="icon time" href=""><%- entry.time %></span></div>';
@@ -16,12 +17,19 @@ var feed = document.getElementsByClassName('feed');
 
 function fetchEntries(username, callback) {
     var url = baseUrl + username + "/diary/rss";
-    request.get('https://rss2json.com/api.json?rss_url='+url)
-    .end(function (error, response) {
-        var items = JSON.parse(response.text).items;
-        Array.prototype.push.apply(teamEntries, items);
+    console.log(url);
+    // callback();
+    parser.parseURL(url, function(err, feed) {
+        console.log(feed);
+        Array.prototype.push.apply(teamEntries, feed.entries);
         callback(null);
     });
+    // request.get('https://rss2json.com/api.json?rss_url='+url)
+    // .end(function (error, response) {
+    //     var items = JSON.parse(response.text).items;
+    //     Array.prototype.push.apply(teamEntries, items);
+    //     callback(null);
+    // });
 }
 
 var q = d3.queue();
