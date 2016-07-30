@@ -36,7 +36,7 @@ q.awaitAll(function(error) {
   if (error) throw error;
   var sortedEntries = teamEntries.sort(sort);
   feed[0].innerHTML = content({'entries': sortedEntries});
-  document.getElementsByClassName('limiter')[0].className = 'limiter';
+  document.getElementsByClassName('content')[0].className = 'limiter';
 });
 
 function sort(a, b) {
