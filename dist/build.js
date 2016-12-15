@@ -6,7 +6,7 @@ var d3 = require('d3-queue');
 var moment = require('moment');
 var he = require('he');
 var parser = require("rss-parser");
-var baseUrl = "https://openstreetmap.org/user/";
+var baseUrl = "//crossorigin.me/http://openstreetmap.org/user/";
 var teamEntries = [];
 
 var meta = '<div class="clearfix quiet small"><a class="icon account" href="http://www.openstreetmap/user/<%- entry.user %>"><%- entry.author %></a> | <span class="icon time" href=""><%- entry.time %></span></div>';
@@ -53,7 +53,6 @@ function sort(a, b) {
         return -1;
     }
 }
-
 },{"d3-queue":2,"he":3,"lodash":123,"mapbox-data-team":129,"moment":130,"rss-parser":131,"superagent":161}],2:[function(require,module,exports){
 // https://d3js.org/d3-queue/ Version 3.0.3. Copyright 2016 Mike Bostock.
 (function (global, factory) {
