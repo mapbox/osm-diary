@@ -5,7 +5,7 @@ var d3 = require('d3-queue');
 var moment = require('moment');
 var he = require('he');
 var parser = require("rss-parser");
-var baseUrl = "//crossorigin.me/http://openstreetmap.org/user/";
+var baseUrl = "https://openstreetmap.org/user/";
 var teamEntries = [];
 
 var meta = '<div class="clearfix quiet small"><a class="icon account" href="http://www.openstreetmap/user/<%- entry.user %>"><%- entry.author %></a> | <span class="icon time" href=""><%- entry.time %></span></div>';
