@@ -1,12 +1,12 @@
 var _ = require('lodash');
-var request = require('superagent');
 var team = require('mapbox-data-team').getUsernames();
 var d3 = require('d3-queue');
 var moment = require('moment');
 var he = require('he');
 var parser = require("rss-parser");
-var baseUrl = "//crossorigin.me/http://openstreetmap.org/user/";
+var baseUrl = "https://www.openstreetmap.org/user/";
 var teamEntries = [];
+var AWS = require("aws-sdk");
 
 var meta = '<div class="clearfix quiet small"><a class="icon account" href="http://www.openstreetmap/user/<%- entry.user %>"><%- entry.author %></a> | <span class="icon time" href=""><%- entry.time %></span></div>';
 
@@ -15,11 +15,22 @@ var title = '<div class="clearfix box round pad2"><div class="clearfix col12"><h
 var content = _.template('<% _.forEach(entries, function(entry) { %>'+ title + '<% }); %>');
 var feed = document.getElementsByClassName('feed');
 
+AWS.config.update({
+    accessKeyId: "AKIAIUKCRM6DC3WI2EUQ",
+    secretAccessKey: "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"
+});
+var lambda = new AWS.Lambda({ region: "us-east-1" });
+
 function fetchEntries(username, callback) {
     var url = baseUrl + username + "/diary/rss";
-    request.get(url)
-    .end(function (error, response) {
-        parser.parseString(response.text, function (err, feed) {
+
+    lambda.invoke({
+        FunctionName: "cors-proxy-osm-diaries",
+        InvocationType: "RequestResponse",
+        Payload: JSON.stringify({ url: url })
+    }, function(error, response) {
+        var json = JSON.parse(response.Payload);
+        parser.parseString(json.body, function (err, feed) {
             Array.prototype.push.apply(teamEntries, feed.feed.entries);
             callback(null);
         });
